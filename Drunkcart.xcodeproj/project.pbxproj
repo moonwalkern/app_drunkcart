@@ -1,0 +1,541 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		70F185401C67D0AC00B02968 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F1853F1C67D0AC00B02968 /* main.m */; };
+		70F185431C67D0AC00B02968 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F185421C67D0AC00B02968 /* AppDelegate.m */; };
+		70F185461C67D0AC00B02968 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F185451C67D0AC00B02968 /* ViewController.m */; };
+		70F185491C67D0AC00B02968 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F185471C67D0AC00B02968 /* Main.storyboard */; };
+		70F1854C1C67D0AC00B02968 /* Drunkcart.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70F1854A1C67D0AC00B02968 /* Drunkcart.xcdatamodeld */; };
+		70F1854E1C67D0AC00B02968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70F1854D1C67D0AC00B02968 /* Assets.xcassets */; };
+		70F185511C67D0AC00B02968 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F1854F1C67D0AC00B02968 /* LaunchScreen.storyboard */; };
+		70F1855C1C67D0AC00B02968 /* DrunkcartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F1855B1C67D0AC00B02968 /* DrunkcartTests.m */; };
+		70F185671C67D0AC00B02968 /* DrunkcartUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F185661C67D0AC00B02968 /* DrunkcartUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		70F185581C67D0AC00B02968 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70F185331C67D0AC00B02968 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70F1853A1C67D0AC00B02968;
+			remoteInfo = Drunkcart;
+		};
+		70F185631C67D0AC00B02968 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70F185331C67D0AC00B02968 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70F1853A1C67D0AC00B02968;
+			remoteInfo = Drunkcart;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		70F1853B1C67D0AC00B02968 /* Drunkcart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drunkcart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70F1853F1C67D0AC00B02968 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		70F185411C67D0AC00B02968 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		70F185421C67D0AC00B02968 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		70F185441C67D0AC00B02968 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		70F185451C67D0AC00B02968 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		70F185481C67D0AC00B02968 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		70F1854B1C67D0AC00B02968 /* Drunkcart.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drunkcart.xcdatamodel; sourceTree = "<group>"; };
+		70F1854D1C67D0AC00B02968 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		70F185501C67D0AC00B02968 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		70F185521C67D0AC00B02968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70F185571C67D0AC00B02968 /* DrunkcartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrunkcartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		70F1855B1C67D0AC00B02968 /* DrunkcartTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrunkcartTests.m; sourceTree = "<group>"; };
+		70F1855D1C67D0AC00B02968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70F185621C67D0AC00B02968 /* DrunkcartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrunkcartUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		70F185661C67D0AC00B02968 /* DrunkcartUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrunkcartUITests.m; sourceTree = "<group>"; };
+		70F185681C67D0AC00B02968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		70F185381C67D0AC00B02968 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F185541C67D0AC00B02968 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F1855F1C67D0AC00B02968 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		70F185321C67D0AC00B02968 = {
+			isa = PBXGroup;
+			children = (
+				70F1853D1C67D0AC00B02968 /* Drunkcart */,
+				70F1855A1C67D0AC00B02968 /* DrunkcartTests */,
+				70F185651C67D0AC00B02968 /* DrunkcartUITests */,
+				70F1853C1C67D0AC00B02968 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		70F1853C1C67D0AC00B02968 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				70F1853B1C67D0AC00B02968 /* Drunkcart.app */,
+				70F185571C67D0AC00B02968 /* DrunkcartTests.xctest */,
+				70F185621C67D0AC00B02968 /* DrunkcartUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		70F1853D1C67D0AC00B02968 /* Drunkcart */ = {
+			isa = PBXGroup;
+			children = (
+				70F185411C67D0AC00B02968 /* AppDelegate.h */,
+				70F185421C67D0AC00B02968 /* AppDelegate.m */,
+				70F185441C67D0AC00B02968 /* ViewController.h */,
+				70F185451C67D0AC00B02968 /* ViewController.m */,
+				70F185471C67D0AC00B02968 /* Main.storyboard */,
+				70F1854D1C67D0AC00B02968 /* Assets.xcassets */,
+				70F1854F1C67D0AC00B02968 /* LaunchScreen.storyboard */,
+				70F185521C67D0AC00B02968 /* Info.plist */,
+				70F1854A1C67D0AC00B02968 /* Drunkcart.xcdatamodeld */,
+				70F1853E1C67D0AC00B02968 /* Supporting Files */,
+			);
+			path = Drunkcart;
+			sourceTree = "<group>";
+		};
+		70F1853E1C67D0AC00B02968 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				70F1853F1C67D0AC00B02968 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		70F1855A1C67D0AC00B02968 /* DrunkcartTests */ = {
+			isa = PBXGroup;
+			children = (
+				70F1855B1C67D0AC00B02968 /* DrunkcartTests.m */,
+				70F1855D1C67D0AC00B02968 /* Info.plist */,
+			);
+			path = DrunkcartTests;
+			sourceTree = "<group>";
+		};
+		70F185651C67D0AC00B02968 /* DrunkcartUITests */ = {
+			isa = PBXGroup;
+			children = (
+				70F185661C67D0AC00B02968 /* DrunkcartUITests.m */,
+				70F185681C67D0AC00B02968 /* Info.plist */,
+			);
+			path = DrunkcartUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		70F1853A1C67D0AC00B02968 /* Drunkcart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70F1856B1C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "Drunkcart" */;
+			buildPhases = (
+				70F185371C67D0AC00B02968 /* Sources */,
+				70F185381C67D0AC00B02968 /* Frameworks */,
+				70F185391C67D0AC00B02968 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Drunkcart;
+			productName = Drunkcart;
+			productReference = 70F1853B1C67D0AC00B02968 /* Drunkcart.app */;
+			productType = "com.apple.product-type.application";
+		};
+		70F185561C67D0AC00B02968 /* DrunkcartTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70F1856E1C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "DrunkcartTests" */;
+			buildPhases = (
+				70F185531C67D0AC00B02968 /* Sources */,
+				70F185541C67D0AC00B02968 /* Frameworks */,
+				70F185551C67D0AC00B02968 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70F185591C67D0AC00B02968 /* PBXTargetDependency */,
+			);
+			name = DrunkcartTests;
+			productName = DrunkcartTests;
+			productReference = 70F185571C67D0AC00B02968 /* DrunkcartTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		70F185611C67D0AC00B02968 /* DrunkcartUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70F185711C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "DrunkcartUITests" */;
+			buildPhases = (
+				70F1855E1C67D0AC00B02968 /* Sources */,
+				70F1855F1C67D0AC00B02968 /* Frameworks */,
+				70F185601C67D0AC00B02968 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70F185641C67D0AC00B02968 /* PBXTargetDependency */,
+			);
+			name = DrunkcartUITests;
+			productName = DrunkcartUITests;
+			productReference = 70F185621C67D0AC00B02968 /* DrunkcartUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		70F185331C67D0AC00B02968 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Sreeji Gopal";
+				TargetAttributes = {
+					70F1853A1C67D0AC00B02968 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GBZL82B9DN;
+					};
+					70F185561C67D0AC00B02968 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GBZL82B9DN;
+						TestTargetID = 70F1853A1C67D0AC00B02968;
+					};
+					70F185611C67D0AC00B02968 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GBZL82B9DN;
+						TestTargetID = 70F1853A1C67D0AC00B02968;
+					};
+				};
+			};
+			buildConfigurationList = 70F185361C67D0AC00B02968 /* Build configuration list for PBXProject "Drunkcart" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 70F185321C67D0AC00B02968;
+			productRefGroup = 70F1853C1C67D0AC00B02968 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				70F1853A1C67D0AC00B02968 /* Drunkcart */,
+				70F185561C67D0AC00B02968 /* DrunkcartTests */,
+				70F185611C67D0AC00B02968 /* DrunkcartUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		70F185391C67D0AC00B02968 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70F185511C67D0AC00B02968 /* LaunchScreen.storyboard in Resources */,
+				70F1854E1C67D0AC00B02968 /* Assets.xcassets in Resources */,
+				70F185491C67D0AC00B02968 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F185551C67D0AC00B02968 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F185601C67D0AC00B02968 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		70F185371C67D0AC00B02968 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70F1854C1C67D0AC00B02968 /* Drunkcart.xcdatamodeld in Sources */,
+				70F185461C67D0AC00B02968 /* ViewController.m in Sources */,
+				70F185431C67D0AC00B02968 /* AppDelegate.m in Sources */,
+				70F185401C67D0AC00B02968 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F185531C67D0AC00B02968 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70F1855C1C67D0AC00B02968 /* DrunkcartTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F1855E1C67D0AC00B02968 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70F185671C67D0AC00B02968 /* DrunkcartUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		70F185591C67D0AC00B02968 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70F1853A1C67D0AC00B02968 /* Drunkcart */;
+			targetProxy = 70F185581C67D0AC00B02968 /* PBXContainerItemProxy */;
+		};
+		70F185641C67D0AC00B02968 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70F1853A1C67D0AC00B02968 /* Drunkcart */;
+			targetProxy = 70F185631C67D0AC00B02968 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		70F185471C67D0AC00B02968 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				70F185481C67D0AC00B02968 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		70F1854F1C67D0AC00B02968 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				70F185501C67D0AC00B02968 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		70F185691C67D0AC00B02968 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		70F1856A1C67D0AC00B02968 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		70F1856C1C67D0AC00B02968 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Drunkcart/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwapDeal.Drunkcart;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		70F1856D1C67D0AC00B02968 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Drunkcart/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwapDeal.Drunkcart;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		70F1856F1C67D0AC00B02968 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = DrunkcartTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwapDeal.DrunkcartTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drunkcart.app/Drunkcart";
+			};
+			name = Debug;
+		};
+		70F185701C67D0AC00B02968 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = DrunkcartTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwapDeal.DrunkcartTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drunkcart.app/Drunkcart";
+			};
+			name = Release;
+		};
+		70F185721C67D0AC00B02968 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = DrunkcartUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwapDeal.DrunkcartUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Drunkcart;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		70F185731C67D0AC00B02968 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = DrunkcartUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SwapDeal.DrunkcartUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Drunkcart;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		70F185361C67D0AC00B02968 /* Build configuration list for PBXProject "Drunkcart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70F185691C67D0AC00B02968 /* Debug */,
+				70F1856A1C67D0AC00B02968 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70F1856B1C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "Drunkcart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70F1856C1C67D0AC00B02968 /* Debug */,
+				70F1856D1C67D0AC00B02968 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		70F1856E1C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "DrunkcartTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70F1856F1C67D0AC00B02968 /* Debug */,
+				70F185701C67D0AC00B02968 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		70F185711C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "DrunkcartUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70F185721C67D0AC00B02968 /* Debug */,
+				70F185731C67D0AC00B02968 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		70F1854A1C67D0AC00B02968 /* Drunkcart.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				70F1854B1C67D0AC00B02968 /* Drunkcart.xcdatamodel */,
+			);
+			currentVersion = 70F1854B1C67D0AC00B02968 /* Drunkcart.xcdatamodel */;
+			path = Drunkcart.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 70F185331C67D0AC00B02968 /* Project object */;
+}
