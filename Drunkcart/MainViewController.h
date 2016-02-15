@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainViewController.h
 //  Drunkcart
 //
 //  Created by Sreeji Gopal on 08/02/16.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MainViewController : UIViewController
 
 
 @end
-
