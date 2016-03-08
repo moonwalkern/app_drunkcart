@@ -13,4 +13,9 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
 @property (nonatomic, retain) NSArray *category;
 @property (nonatomic, retain) SWRevealViewController *myrevealViewController;
+@property (strong, nonatomic) IBOutlet UILabel *subCLabel;
+@property (strong, nonatomic) NSDictionary *sectionName;
+@property (nonatomic, retain) NSArray *subcategoryDataArray;
+
+
 @end

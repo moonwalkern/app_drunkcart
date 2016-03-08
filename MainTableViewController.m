@@ -53,10 +53,10 @@ NSArray *categoryDataArray;
     //UIActivityIndicatorView *activityInd = [[UIActivityIndicatorView alloc]init];
     UIImageView *animate = [self animateActivityStart];
     //[activityInd startAnimating];
-    [activityInd startAnimating];
+    //[activityInd startAnimating];
     categoryDataArray = [self fetchCategoryData];
     //NSLog(@"Count  = %ld",[categoryDataArray count]);
-    [activityInd stopAnimating];
+    //[activityInd stopAnimating];
     [self animateActivityStop:animate];
 }
 
@@ -82,7 +82,40 @@ NSArray *categoryDataArray;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    NSString *imageUrl = [NSString alloc];
     
+    UIImage *image;
+    
+    //imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:@"cell_bg.png" ] ];
+    
+    //image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]];
+    
+//    //cell.contentView.backgroundColor = [UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
+//    UIView  *whiteRoundedView = [[UIView alloc]initWithFrame:CGRectMake(5, 2, self.view.frame.size.width-10, cell.contentView.frame.size.height)];
+//    CGFloat colors[]={1.0,1.0,1.0,1.0};//cell color white
+//    whiteRoundedView.layer.backgroundColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), colors);
+//    whiteRoundedView.layer.masksToBounds = false;
+//    whiteRoundedView.layer.cornerRadius = 1.0;
+//    whiteRoundedView.layer.shadowOffset = CGSizeMake(-1, 1);
+//    whiteRoundedView.layer.shadowOpacity = 0.2;
+//    [cell.contentView addSubview:whiteRoundedView];
+//    [cell.contentView sendSubviewToBack:whiteRoundedView];
+
+//    
+//    if (indexPath.row != 0)
+//    {
+        cell.contentView.backgroundColor = [UIColor clearColor];
+        UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(2,10,367,95)];
+        whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
+        whiteRoundedCornerView.layer.masksToBounds = NO;
+        whiteRoundedCornerView.layer.cornerRadius = 3.0;
+        whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, 1);
+        whiteRoundedCornerView.layer.shadowOpacity = 0.5;
+        [cell.contentView addSubview:whiteRoundedCornerView];
+        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
+        
+//    }
     // Configure the cell...
     
     //Getting all the required data for showing the table view.
@@ -103,9 +136,7 @@ NSArray *categoryDataArray;
     UILabel *categoryNameLabel = (UILabel *)[cell viewWithTag:1];
     categoryNameLabel.text = categoryName;
     
-    NSString *imageUrl = [NSString alloc];
-    
-    UIImage *image;
+   
     imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:imageName]];
     //NSLog(@"Image url %@",imageUrl);
     
@@ -135,15 +166,15 @@ NSArray *categoryDataArray;
     //cell.contentView.backgroundColor = [UIColor colorWithRed:233 green:39 blue:59 alpha:1];;
     //cell.contentView.backgroundColor = UIColor.blueColor;
     
-    imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:@"cell_bg.png" ] ];
     
-    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]];
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[image stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    //cell.backgroundView = [[UIImageView alloc] initWithImage:[image stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
     
     return cell;
 }
 
+
+/*
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
     ////NSLog(@"Row Selected %ld", selectedIndexPath.row);
@@ -156,8 +187,12 @@ NSArray *categoryDataArray;
     NSLog(@"Cate = %@",categoryID);
     self.category = categoryData;
     //[self performSegueWithIdentifier:@"CategorySegu" sender:self.category];
+    
+    CategoryTableViewController *categoryView = [[CategoryTableViewController alloc]init];
+    categoryView.category = categoryData;
+    //[self.navigationController pushViewController:categoryView animated:YES];
 }
-
+*/
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -206,12 +241,12 @@ NSArray *categoryDataArray;
     UINavigationController *navigationController = [segue destinationViewController];
     
     CategoryTableViewController *categoryViewController = [navigationController childViewControllers].firstObject;
-
+    //CategoryTableViewController *categoryViewController = [[CategoryTableViewController alloc]init];
     
-    //NSLog(@"Cate at segue = %@",sender);
+    NSLog(@"Cate at segue = %@",sender);
     categoryViewController.category = categoryData;
     //categoryViewController.myrevealViewController = [self revealViewController];
-    
+    NSLog(@"Last");
 }
 
 

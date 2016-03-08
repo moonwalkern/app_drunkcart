@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7059DB921C82CD0C00E03FC0 /* cell_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059DB911C82CD0C00E03FC0 /* cell_bg.png */; };
+		70BB34581C82E0F000822A50 /* CustomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BB34571C82E0F000822A50 /* CustomHeader.m */; };
+		70BB345D1C83150500822A50 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB345C1C83150500822A50 /* UIKit.framework */; };
+		70BB345F1C83151800822A50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB345E1C83151800822A50 /* Foundation.framework */; };
+		70BB34611C83152400822A50 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BB34601C83152400822A50 /* CoreGraphics.framework */; };
+		70BB34641C83208400822A50 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BB34631C83208400822A50 /* CustomCellBackground.m */; };
+		70BB34671C83F59B00822A50 /* DINPro-Cond.otf in Resources */ = {isa = PBXBuildFile; fileRef = 70BB34661C83E9B000822A50 /* DINPro-Cond.otf */; };
+		70BB34691C8442DC00822A50 /* buy_now.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BB34681C8442DC00822A50 /* buy_now.png */; };
+		70BB34721C8452D700822A50 /* CCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BB34711C8452D700822A50 /* CCell.m */; };
+		70BB34751C8EC44D00822A50 /* CartTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BB34741C8EC44D00822A50 /* CartTableViewController.m */; };
 		70F185401C67D0AC00B02968 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F1853F1C67D0AC00B02968 /* main.m */; };
 		70F185431C67D0AC00B02968 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F185421C67D0AC00B02968 /* AppDelegate.m */; };
 		70F185491C67D0AC00B02968 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F185471C67D0AC00B02968 /* Main.storyboard */; };
@@ -35,6 +45,7 @@
 		70F185D11C6E68E200B02968 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F185CD1C6E68E200B02968 /* Icon.png */; };
 		70F185D41C6F6D2D00B02968 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F185D31C6F6D2D00B02968 /* CategoryTableViewController.m */; };
 		70F185D61C70FD5C00B02968 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F185D51C70FD5C00B02968 /* Back.png */; };
+		70F185D81C72251400B02968 /* BackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F185D71C72251400B02968 /* BackBtn.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +66,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7059DB911C82CD0C00E03FC0 /* cell_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_bg.png; sourceTree = "<group>"; };
+		70BB34561C82E0F000822A50 /* CustomHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHeader.h; sourceTree = "<group>"; };
+		70BB34571C82E0F000822A50 /* CustomHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHeader.m; sourceTree = "<group>"; };
+		70BB345C1C83150500822A50 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		70BB345E1C83151800822A50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		70BB34601C83152400822A50 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		70BB34621C83208400822A50 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
+		70BB34631C83208400822A50 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
+		70BB34661C83E9B000822A50 /* DINPro-Cond.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DINPro-Cond.otf"; path = "../../../../../Downloads/din-pro-cond/DINPro-Cond.otf"; sourceTree = "<group>"; };
+		70BB34681C8442DC00822A50 /* buy_now.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buy_now.png; path = ../../../../../../Downloads/buy_now.png; sourceTree = "<group>"; };
+		70BB34701C8452D700822A50 /* CCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCell.h; sourceTree = "<group>"; };
+		70BB34711C8452D700822A50 /* CCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCell.m; sourceTree = "<group>"; };
+		70BB34731C8EC44D00822A50 /* CartTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartTableViewController.h; sourceTree = "<group>"; };
+		70BB34741C8EC44D00822A50 /* CartTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartTableViewController.m; sourceTree = "<group>"; };
 		70F1853B1C67D0AC00B02968 /* Drunkcart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drunkcart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70F1853F1C67D0AC00B02968 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		70F185411C67D0AC00B02968 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -99,6 +124,7 @@
 		70F185D21C6F6D2D00B02968 /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
 		70F185D31C6F6D2D00B02968 /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
 		70F185D51C70FD5C00B02968 /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
+		70F185D71C72251400B02968 /* BackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackBtn.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +132,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70BB34611C83152400822A50 /* CoreGraphics.framework in Frameworks */,
+				70BB345F1C83151800822A50 /* Foundation.framework in Frameworks */,
+				70BB345D1C83150500822A50 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,11 +155,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70BB34651C83E99E00822A50 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				70BB34661C83E9B000822A50 /* DINPro-Cond.otf */,
+			);
+			name = font;
+			sourceTree = "<group>";
+		};
 		70F185321C67D0AC00B02968 = {
 			isa = PBXGroup;
 			children = (
+				70BB34601C83152400822A50 /* CoreGraphics.framework */,
+				70BB345E1C83151800822A50 /* Foundation.framework */,
+				70BB345C1C83150500822A50 /* UIKit.framework */,
 				70F185D21C6F6D2D00B02968 /* CategoryTableViewController.h */,
 				70F185D31C6F6D2D00B02968 /* CategoryTableViewController.m */,
+				70BB34731C8EC44D00822A50 /* CartTableViewController.h */,
+				70BB34741C8EC44D00822A50 /* CartTableViewController.m */,
 				70F1858D1C699E7200B02968 /* library */,
 				70F185831C690B3A00B02968 /* MainTableViewController.h */,
 				70F185841C690B3A00B02968 /* MainTableViewController.m */,
@@ -154,6 +196,7 @@
 		70F1853D1C67D0AC00B02968 /* Drunkcart */ = {
 			isa = PBXGroup;
 			children = (
+				70BB34651C83E99E00822A50 /* font */,
 				70F1859A1C69CBFF00B02968 /* core */,
 				70F1857B1C68C8D700B02968 /* images */,
 				70F185771C6887F300B02968 /* SWRevealViewController */,
@@ -209,7 +252,10 @@
 		70F1857B1C68C8D700B02968 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				70BB34681C8442DC00822A50 /* buy_now.png */,
+				7059DB911C82CD0C00E03FC0 /* cell_bg.png */,
 				70F185D51C70FD5C00B02968 /* Back.png */,
+				70F185D71C72251400B02968 /* BackBtn.png */,
 				70F185CA1C6E68E200B02968 /* Icon@2x.png */,
 				70F185CB1C6E68E200B02968 /* Default@2x.png */,
 				70F185CC1C6E68E200B02968 /* Default.png */,
@@ -228,11 +274,17 @@
 		70F1858D1C699E7200B02968 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				70BB34621C83208400822A50 /* CustomCellBackground.h */,
+				70BB34631C83208400822A50 /* CustomCellBackground.m */,
 				70F1859B1C69CC3000B02968 /* Constants.h */,
 				70F1858E1C699E7200B02968 /* CoreDataManager.h */,
 				70F1858F1C699E7200B02968 /* CoreDataManager.m */,
 				70F185901C699E7200B02968 /* GlobalData.h */,
 				70F185911C699E7200B02968 /* GlobalData.m */,
+				70BB34561C82E0F000822A50 /* CustomHeader.h */,
+				70BB34571C82E0F000822A50 /* CustomHeader.m */,
+				70BB34701C8452D700822A50 /* CCell.h */,
+				70BB34711C8452D700822A50 /* CCell.m */,
 			);
 			name = library;
 			path = Drunkcart/library;
@@ -355,9 +407,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70BB34671C83F59B00822A50 /* DINPro-Cond.otf in Resources */,
 				70F185CF1C6E68E200B02968 /* Default@2x.png in Resources */,
 				70F185AA1C6CB0D000B02968 /* activity_indicator_image_w.png in Resources */,
 				70F1857E1C68C8D700B02968 /* menu.png in Resources */,
+				70F185D81C72251400B02968 /* BackBtn.png in Resources */,
 				70F185511C67D0AC00B02968 /* LaunchScreen.storyboard in Resources */,
 				70F185AB1C6CB0D000B02968 /* activity_indicator_image_r.png in Resources */,
 				70F185A81C6CB0D000B02968 /* activity_indicator_image_v.png in Resources */,
@@ -365,6 +419,8 @@
 				70F185D01C6E68E200B02968 /* Default.png in Resources */,
 				70F1857F1C68C8D700B02968 /* menu@2x.png in Resources */,
 				70F185A31C6B603500B02968 /* beer_cell.png in Resources */,
+				70BB34691C8442DC00822A50 /* buy_now.png in Resources */,
+				7059DB921C82CD0C00E03FC0 /* cell_bg.png in Resources */,
 				70F185A91C6CB0D000B02968 /* activity_indicator_image_b.png in Resources */,
 				70F1854E1C67D0AC00B02968 /* Assets.xcassets in Resources */,
 				70F185D61C70FD5C00B02968 /* Back.png in Resources */,
@@ -395,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70F1854C1C67D0AC00B02968 /* Drunkcart.xcdatamodeld in Sources */,
+				70BB34581C82E0F000822A50 /* CustomHeader.m in Sources */,
 				70F185921C699E7200B02968 /* CoreDataManager.m in Sources */,
 				70F185931C699E7200B02968 /* GlobalData.m in Sources */,
 				70F185431C67D0AC00B02968 /* AppDelegate.m in Sources */,
@@ -404,7 +461,10 @@
 				70F185C81C6DEF4900B02968 /* Config+CoreDataProperties.m in Sources */,
 				70F185821C68C91200B02968 /* MainViewController.m in Sources */,
 				70F1857A1C6887F300B02968 /* SWRevealViewController.m in Sources */,
+				70BB34721C8452D700822A50 /* CCell.m in Sources */,
+				70BB34641C83208400822A50 /* CustomCellBackground.m in Sources */,
 				70F185D41C6F6D2D00B02968 /* CategoryTableViewController.m in Sources */,
+				70BB34751C8EC44D00822A50 /* CartTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +690,7 @@
 				70F1856D1C67D0AC00B02968 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		70F1856E1C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "DrunkcartTests" */ = {
 			isa = XCConfigurationList;
@@ -638,6 +699,7 @@
 				70F185701C67D0AC00B02968 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		70F185711C67D0AC00B02968 /* Build configuration list for PBXNativeTarget "DrunkcartUITests" */ = {
 			isa = XCConfigurationList;
@@ -646,6 +708,7 @@
 				70F185731C67D0AC00B02968 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
