@@ -6,6 +6,11 @@
 //  Copyright © 2016 Sreeji Gopal. All rights reserved.
 //
 
+
+#define NSLog
+#define SPINNER_SIZE 25
+
+
 #import "MainTableViewController.h"
 #import "Constants.h"
 #import "SWRevealViewController.h"
@@ -13,6 +18,11 @@
 #import "CoreDataManager.h"
 #import "Config.h"
 #import "CategoryTableViewController.h"
+#import "CCell.h"
+#import "UIImageView+WebCache.h"
+#import "SVProgressHUD.h"
+
+
 
 @interface MainTableViewController ()
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
@@ -33,6 +43,13 @@ NSArray *categoryDataArray;
     wsEndpoint = [[NSString alloc]init];
     categoryID = [[NSString alloc]init];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]
+                                        init];
+    refreshControl.tintColor = [UIColor redColor];
+    [refreshControl addTarget:self action:@selector(changeSorting) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    self.refreshControl = refreshControl;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -47,18 +64,51 @@ NSArray *categoryDataArray;
         [self.navigationController.navigationBar addGestureRecognizer:revealViewController.panGestureRecognizer];
 
     }
-    wsEndpoint = [[GlobalData sharedGlobalData]webServiceHostName];
+    //wsEndpoint = [[GlobalData sharedGlobalData]webServiceHostName];
     //NSLog(@"WS Endpoint %@", wsEndpoint);
-    //[[CoreDataManager sharedManager]init];
-    //UIActivityIndicatorView *activityInd = [[UIActivityIndicatorView alloc]init];
-    UIImageView *animate = [self animateActivityStart];
-    //[activityInd startAnimating];
-    //[activityInd startAnimating];
+    //[[CoreDataManager sharedManager]init];;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.tableView addSubview:activityInd];
+    [self.tableView bringSubviewToFront:activityInd];
+    [activityInd startAnimating];
+    [self.tableView bringSubviewToFront:activityInd];
+    //timer = [NSTimer scheduledTimerWithTimeInterval: (1.0/2.0)
+    //                                        target: self
+    //                                       selector:@selector(loading)
+    //                                       userInfo: nil repeats:YES];
+    //[SVProgressHUD show];
+    //[activityIndicatorView startAnimating];
+    
+    
     categoryDataArray = [self fetchCategoryData];
-    //NSLog(@"Count  = %ld",[categoryDataArray count]);
-    //[activityInd stopAnimating];
-    [self animateActivityStop:animate];
+    //[SVProgressHUD dismiss];
+    //[activityIndicatorView stopAnimating];
+    
 }
+
+
+- (void)loading {
+    if (categoryDataArray){
+        [activityInd startAnimating];
+        NSLog(@"Loading -: %@",categoryDataArray);
+
+    }
+    else{
+        [activityInd startAnimating];
+    }
+}
+
+-(void)changeSorting
+{
+    NSLog(@"Refreshing");
+    [self.refreshControl endRefreshing];
+    [SVProgressHUD show];
+    [self.tableView reloadData];
+    [SVProgressHUD dismiss];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -67,10 +117,7 @@ NSArray *categoryDataArray;
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 1;
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
@@ -81,30 +128,20 @@ NSArray *categoryDataArray;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    NSString *imageUrl = [NSString alloc];
+    NSString *identifier = [NSString stringWithFormat:@"Cell%ld", indexPath.row];
     
-    UIImage *image;
+    //NSString *identifier = [NSString stringWithFormat:@"Cell"];
     
-    //imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:@"cell_bg.png" ] ];
-    
-    //image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]];
-    
-//    //cell.contentView.backgroundColor = [UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
-//    UIView  *whiteRoundedView = [[UIView alloc]initWithFrame:CGRectMake(5, 2, self.view.frame.size.width-10, cell.contentView.frame.size.height)];
-//    CGFloat colors[]={1.0,1.0,1.0,1.0};//cell color white
-//    whiteRoundedView.layer.backgroundColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), colors);
-//    whiteRoundedView.layer.masksToBounds = false;
-//    whiteRoundedView.layer.cornerRadius = 1.0;
-//    whiteRoundedView.layer.shadowOffset = CGSizeMake(-1, 1);
-//    whiteRoundedView.layer.shadowOpacity = 0.2;
-//    [cell.contentView addSubview:whiteRoundedView];
-//    [cell.contentView sendSubviewToBack:whiteRoundedView];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    NSLog(@"Identified %@",identifier);
 
-//    
-//    if (indexPath.row != 0)
-//    {
+    
+    
+    if(cell == nil){
+       
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        
         cell.contentView.backgroundColor = [UIColor clearColor];
         UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(2,10,367,95)];
         whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
@@ -114,67 +151,43 @@ NSArray *categoryDataArray;
         whiteRoundedCornerView.layer.shadowOpacity = 0.5;
         [cell.contentView addSubview:whiteRoundedCornerView];
         [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
+    
         
-//    }
-    // Configure the cell...
-    
-    //Getting all the required data for showing the table view.
-    ////NSLog(@"Category %@ index %ld", categoryDataArray[indexPath.row], indexPath.row);  //Show all the data for a given array index
-    NSMutableArray *categoryData = categoryDataArray[indexPath.row];
-    
-    NSString *categoryName = [categoryData valueForKey:@"name"];
-    NSString *categoryID = [categoryData valueForKey:@"category_id"];
-    NSString *imageName = [NSString stringWithFormat:@"%@_cell.png",categoryName];
-    
-    
-    NSLog(@"category id %@ Name %@",categoryID,categoryName);
-    //NSLog(@"category name %@",[categoryData valueForKey:@"category_id"]);
-    //NSLog(@"image name %@",imageName);
-    //
-    
-    
-    UILabel *categoryNameLabel = (UILabel *)[cell viewWithTag:1];
-    categoryNameLabel.text = categoryName;
-    
-   
-    imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:imageName]];
-    //NSLog(@"Image url %@",imageUrl);
-    
-    if ([[GlobalData sharedImageCache] DoesExist:imageUrl] == true) {
-        image = [[GlobalData sharedImageCache] GetImage:imageUrl];
-        //NSLog(@"Loading image from cache");
-    }else{
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageUrl]];
-        if(imageData == nil){
-            //NSLog(@"bad image");
-            imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:@"Beer_cell.png"]];
-            imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageUrl]];
-        }
-        image = [[UIImage alloc] initWithData:imageData];
-        [[GlobalData sharedImageCache]AddImage:imageUrl :image];
-        //NSLog(@"No image in cache loading url");
+        NSMutableArray *categoryData = categoryDataArray[indexPath.row];
+        NSString *imageUrl = [NSString alloc];
+        NSString *categoryName = [categoryData valueForKey:@"name"];
+        NSString *imageName = [NSString stringWithFormat:@"%@_cell.png",categoryName];
+        imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:imageName]];
+        NSLog(@"Image url %@",imageUrl);
+
+        
+
+        UIImageView *sImage =[[UIImageView alloc] initWithFrame:CGRectMake(12,10,367,95)];
+        [sImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        sImage.frame = CGRectMake(2,10,367,95);
+        
+        
+        
+        
+        [sImage setMultipleTouchEnabled:YES];
+        [sImage setUserInteractionEnabled:YES];
+        
+        [cell.contentView addSubview:sImage];
+        //[activityIndicator stopAnimating];
+        //[activityIndicatorView stopAnimating];
+        
     }
-    
-    UIImageView *categoryImage = (UIImageView *)[cell viewWithTag:2];
-    //image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]];
-    categoryImage.contentMode = UIViewContentModeScaleAspectFill;
-    categoryImage.image = image;
-    
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     
-    //cell.contentView.backgroundColor = [UIColor colorWithRed: 233/255 green: 39/255  blue: 59/255 alpha: 1.0];
-    //cell.contentView.backgroundColor = [UIColor colorWithRed:233 green:39 blue:59 alpha:1];;
-    //cell.contentView.backgroundColor = UIColor.blueColor;
-    
-    
-    
-    //cell.backgroundView = [[UIImageView alloc] initWithImage:[image stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    
     return cell;
+    
+    
 }
 
+-(void)singleTapGestureCaptured{
+    NSLog(@"single Tap on imageview");
+}
 
-/*
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
     ////NSLog(@"Row Selected %ld", selectedIndexPath.row);
@@ -186,13 +199,14 @@ NSArray *categoryDataArray;
     categoryID = [categoryData valueForKey:@"category_id"];
     NSLog(@"Cate = %@",categoryID);
     self.category = categoryData;
-    //[self performSegueWithIdentifier:@"CategorySegu" sender:self.category];
+    [self performSegueWithIdentifier:@"CategorySegu" sender:self.category];
     
-    CategoryTableViewController *categoryView = [[CategoryTableViewController alloc]init];
-    categoryView.category = categoryData;
+    //CategoryTableViewController *categoryView = [[CategoryTableViewController alloc]init];
+    //categoryView.category = categoryData;
     //[self.navigationController pushViewController:categoryView animated:YES];
 }
-*/
+
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -232,6 +246,7 @@ NSArray *categoryDataArray;
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [SVProgressHUD show];
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     NSIndexPath *rowNo = [self.tableView indexPathForSelectedRow];
@@ -247,18 +262,21 @@ NSArray *categoryDataArray;
     categoryViewController.category = categoryData;
     //categoryViewController.myrevealViewController = [self revealViewController];
     NSLog(@"Last");
+    [SVProgressHUD dismiss];
 }
 
 
 -(NSArray*)fetchCategoryData{
-    NSArray *fetchCategoryData  = [self readCategoryData:@"category"];
     
+    
+    NSArray *fetchCategoryData  = [self readCategoryData:@"category"];
+    NSLog(@"categoryURI %@",categoryURI);
     NSString *urlRest = [[GlobalData sharedGlobalData]buildHost:categoryURI];
     NSString *postData=[NSString stringWithFormat:@"device=iOS"];
-
+    NSLog(@"urlRest %@",urlRest);
     
     if([fetchCategoryData count] > 0){
-        //NSLog(@"Fetched data from core, now attaching to json object");
+        NSLog(@"Fetched data from core, now attaching to json object");
         Config *config = fetchCategoryData[0];
         fetchCategoryData = [fetchCategoryData[0] valueForKey:@"data"];
         
@@ -270,7 +288,7 @@ NSArray *categoryDataArray;
                                           error:&jsonError];
         fetchCategoryData = arr;
     }else{
-        //NSLog(@"NonExisting category in the coredata");
+        NSLog(@"NonExisting category in the coredata  URL @", urlRest);
         fetchCategoryData = [[GlobalData sharedGlobalData] requestSynchronousData:urlRest :postData :@"POST"];
 //        //NSLog(@"User Data: %@", fetchCategoryData);
         fetchCategoryData = [fetchCategoryData valueForKey:@"data"];
@@ -278,6 +296,7 @@ NSArray *categoryDataArray;
         [self addData:@"category":fetchCategoryData];
         
     }
+    //[self animateActivityStop:self.view];
     return fetchCategoryData;
 }
 

@@ -16,5 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *buyButton;
 @property (strong, nonatomic) IBOutlet UILabel *hiddenLabel;
 @property (strong, nonatomic) IBOutlet UILabel *idLabelTemp;
+@property (strong, nonatomic) IBOutlet UIImageView *categoryImage;
 
 @end

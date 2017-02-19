@@ -10,7 +10,13 @@
 
 @interface MainTableViewController : UITableViewController{
     IBOutlet UIActivityIndicatorView *activityInd;
+    UILabel *activityLabel;
+    NSTimer *timer;
+    UIView *container;
+    CGRect frame;
 }
 @property (nonatomic,retain) NSString *categoryID;
+
+-(id)initWithFrame:(CGRect) theFrame;
 
 @end

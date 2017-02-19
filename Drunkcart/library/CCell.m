@@ -11,6 +11,7 @@
 
 @implementation CCell
 
+@synthesize categoryImage;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

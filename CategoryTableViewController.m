@@ -6,6 +6,8 @@
 //  Copyright © 2016 Sreeji Gopal. All rights reserved.
 //
 
+#define NSLog
+
 #import "CategoryTableViewController.h"
 #import "MainTableViewController.h"
 #import "Constants.h"
@@ -16,23 +18,32 @@
 #import "CustomHeader.h"
 #import "CustomCellBackground.h"
 #import "CCell.h"
+#import "CartTableViewController.h"
+#import "UIImageView+WebCache.h"
+#import "SVProgressHUD.h"
 
 
 @interface CategoryTableViewController ()
-    @property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end
 
 @implementation CategoryTableViewController
 @synthesize category;
+
 @synthesize myrevealViewController;
 @synthesize sectionName;
 @synthesize subcategoryDataArray;
 NSInteger rowInc;
+NSMutableDictionary *cartArray;
+NSDictionary *backArray;
+NSString *identity;
+bool fReload;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    identity = @"Cell";
+    cartArray = [[NSMutableDictionary alloc] init];
 //    self.navigationItem.hidesBackButton = YES;
 //    
     UIImage* image = [UIImage imageNamed:@"BackBtn.png"];
@@ -42,7 +53,7 @@ NSInteger rowInc;
     [backbtn setShowsTouchWhenHighlighted:YES];
     [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
-    [self.navigationItem setRightBarButtonItem:backButtonItem];
+    [self.navigationItem setLeftBarButtonItem:backButtonItem];
     
     NSLog(@"Category ID From CategoryTableViewController%@",category);
 //    SWRevealViewController *revealViewController =  self.revealViewController;
@@ -56,13 +67,15 @@ NSInteger rowInc;
 //        [self.revealViewController panGestureRecognizer];
 //    }
     
-    
+    //[activityIndicatorView startAnimating];
     NSString *categoryID = [category valueForKey:@"category_id"];
     subcategoryDataArray = [self fetchSubCategoryData:categoryID];
     NSLog(@"Count of subcategory %ld",[subcategoryDataArray count]);
-    
+    //[SVProgressHUD show];
     [self loadSubDisctionary];
+    //[SVProgressHUD dismiss];
     rowInc = 0;
+    fReload = NO;
     //[self.tableView reloadData];
     //Setting font genericalluy
     //[subCLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:156.0]];
@@ -79,18 +92,47 @@ NSInteger rowInc;
 //            NSLog(@"  %@", name);
 //        }
 //    }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBack:) name:@"getBack1" object:backArray];
+    
 }
 
+
+- (void) showBack:(NSNotification *)notification{
+    NSDictionary  *theArray = [notification userInfo];
+    NSLog(@"Got back %@",theArray);
+    identity = @"Cell";
+    fReload = YES;
+    //[self.tableView reloadData];
+    //[self.tableView beginUpdates];
+    //NSIndexPath *iPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    //[self.tableView deleteRowsAtIndexPaths:@[iPath] withRowAnimation:UITableViewRowAnimationNone];
+    //[self.tableView reloadData];
+    //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:iPath] withRowAnimation:UITableViewRowAnimationNone];
+    //[self.tableView endUpdates];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getBack" object:backArray];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+   
+    [super viewWillAppear:animated];
+    [self.tableView reloadData]; // to reload selected cell
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    NSLog(@"Count of sections %lu",[sectionName count]);
+    //NSLog(@"Count of sections %lu",[sectionName count]);
     return [sectionName count];
 }
 
@@ -116,6 +158,11 @@ NSInteger rowInc;
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   return 100;
+}
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 //    
@@ -187,18 +234,23 @@ NSInteger rowInc;
     
     //CCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     NSString *oldidentifier = @"Cell";
-    NSString *identifier = [NSString stringWithFormat:@"Cell%ld%ld", indexPath.row,indexPath.section];
-    CCell *oldcell = [tableView dequeueReusableCellWithIdentifier:oldidentifier];
+    NSString *identifier = [NSString stringWithFormat:@"%@%ld%ld",identity, indexPath.row,indexPath.section];
+    //CCell *oldcell = [tableView dequeueReusableCellWithIdentifier:oldidentifier];
     //CCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    NSLog(@"Identified %@", identifier);
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     
-    CCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
     if (cell == nil) {
-        cell = [[CCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:oldidentifier];
-   
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    
     
         
+        cell.layer.opaque = YES;
         
+        cell.opaque = YES;
     
     
         
@@ -249,30 +301,40 @@ NSInteger rowInc;
     imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:imageName]];
     
     imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //NSLog(@"Image url %@",imageUrl);
+    NSLog(@"Image url %@",imageUrl);
     
-    if ([[GlobalData sharedImageCache] DoesExist:imageUrl] == true) {
-        image = [[GlobalData sharedImageCache] GetImage:imageUrl];
-        //NSLog(@"Loading image from cache");
-    }else{
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageUrl]];
-        if(imageData == nil){
-            //NSLog(@"bad image");
-            imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:@"Beer_cell.png"]];
-            imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageUrl]];
-        }
-        image = [[UIImage alloc] initWithData:imageData];
-        [[GlobalData sharedImageCache]AddImage:imageUrl :image];
-        //NSLog(@"No image in cache loading url");
-    }
-    
-    UIImageView *subCategoryImage = (UIImageView *)[oldcell viewWithTag:1];
-    UILabel *subCategoryName = (UILabel *)[oldcell viewWithTag:2];
-    UILabel *subCategoryPrice = (UILabel *)[oldcell viewWithTag:3];
-    UILabel *subCategoryAlcohol = (UILabel *)[oldcell viewWithTag:4];
-    UILabel *subCategoryQty = (UILabel *)[oldcell viewWithTag:5];
-    
-    NSLog(@"subCategoryImage %@",subCategoryImage);
+//    if ([[GlobalData sharedImageCache] DoesExist:imageUrl] == true) {
+//        image = [[GlobalData sharedImageCache] GetImage:imageUrl];
+//        NSLog(@"Loading image from cache");
+//    }else{
+//        NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+//        if(imageData == nil){
+//            NSLog(@"bad image");
+//            image = [UIImage imageNamed:@"Beer_cell.png"];
+//
+////            imageUrl = [NSString stringWithFormat:@"%@",[[GlobalData sharedGlobalData]buildHost:@"Beer_cell.png"]];
+////            if ([[GlobalData sharedImageCache] DoesExist:imageUrl] == true) {
+////                image = [[GlobalData sharedImageCache] GetImage:imageUrl];
+////                NSLog(@"Loading image from cache");
+////            }else{
+////                imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+////                image = [[UIImage alloc] initWithData:imageData];
+////            }
+//            
+//        }
+//        
+//        [[GlobalData sharedImageCache]AddImage:imageUrl :image];
+//        NSLog(@"No image in cache loading url");
+//    }
+    UIImageView *sImage =[[UIImageView alloc] initWithFrame:CGRectMake(8,10,78,81)];
+    [sImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"beer_cell.png"]];
+//    UIImageView *subCategoryImage = (UIImageView *)[oldcell viewWithTag:1];
+//    UILabel *subCategoryName = (UILabel *)[oldcell viewWithTag:2];
+//    UILabel *subCategoryPrice = (UILabel *)[oldcell viewWithTag:3];
+//    UILabel *subCategoryAlcohol = (UILabel *)[oldcell viewWithTag:4];
+//    UILabel *subCategoryQty = (UILabel *)[oldcell viewWithTag:5];
+//    
+//    NSLog(@"subCategoryImage %@",subCategoryImage);
     
     //[cell.contentView addSubview: subCategoryImage];
     //[cell.contentView addSubview: subCategoryName];
@@ -281,79 +343,79 @@ NSInteger rowInc;
     float liter = [categoryVolume floatValue];
     NSString *floatWithoutZeroes = [[NSNumber numberWithFloat:price] stringValue];
     
-    subCategoryImage.image = image;
-    subCategoryName.text = categoryName;
-    subCategoryPrice.text = floatWithoutZeroes;
-    floatWithoutZeroes = [[NSNumber numberWithFloat:liter] stringValue];
-    
+    //subCategoryImage.image = image;
+//    subCategoryName.text = categoryName;
+//    subCategoryPrice.text = floatWithoutZeroes;
+//    floatWithoutZeroes = [[NSNumber numberWithFloat:liter] stringValue];
+//    
+//
+//    subCategoryAlcohol.text = [NSString stringWithFormat:@"alcohol is %@",categoryAlcohol];
+//    subCategoryQty.text = [NSString stringWithFormat:@"ml %@", floatWithoutZeroes];
+//    
+//    //cell.imageView.image = image;
+//    
+//    if (![cell.backgroundView isKindOfClass:[CustomCellBackground class]]) {
+//        cell.backgroundView = [[CustomCellBackground alloc] init];
+//    }
+//    
+//    if (![cell.selectedBackgroundView isKindOfClass:[CustomCellBackground class]]) {
+//        cell.selectedBackgroundView = [[CustomCellBackground alloc] init];
+//    }
+//    
+//    [subCategoryName setFont:[UIFont fontWithName:@"DINPro-CondensedRegular" size:20]];
+//    [subCategoryPrice setFont:[UIFont fontWithName:@"DINPro-CondensedRegular" size:14]];
+//    [subCategoryAlcohol setFont:[UIFont fontWithName:@"DINPro-CondensedRegular" size:13]];
 
-    subCategoryAlcohol.text = [NSString stringWithFormat:@"alcohol is %@",categoryAlcohol];
-    subCategoryQty.text = [NSString stringWithFormat:@"ml %@", floatWithoutZeroes];
-    
-    //cell.imageView.image = image;
-    
-    if (![cell.backgroundView isKindOfClass:[CustomCellBackground class]]) {
-        cell.backgroundView = [[CustomCellBackground alloc] init];
-    }
-    
-    if (![cell.selectedBackgroundView isKindOfClass:[CustomCellBackground class]]) {
-        cell.selectedBackgroundView = [[CustomCellBackground alloc] init];
-    }
-    
-    [subCategoryName setFont:[UIFont fontWithName:@"DINPro-CondensedRegular" size:20]];
-    [subCategoryPrice setFont:[UIFont fontWithName:@"DINPro-CondensedRegular" size:14]];
-    [subCategoryAlcohol setFont:[UIFont fontWithName:@"DINPro-CondensedRegular" size:13]];
-
-    cell.incButton = (UIButton *)[oldcell viewWithTag:11];
-    cell.decButton = (UIButton *)[oldcell viewWithTag:10];
-    cell.idLabel = (UILabel *)[oldcell viewWithTag:12];
-    cell.idLabelTemp = (UILabel *)[oldcell viewWithTag:30];
-    
-    cell.buyButton = (UIButton *)[cell viewWithTag:15];
-    
-    cell.incButton.layer.borderWidth = .5f;
-    cell.decButton.layer.borderWidth = .5f;
-    cell.idLabel.layer.borderWidth = .5f;
-    
-    NSLog(@"IncTag--------- %@   DecTag ------- %@ ----- %@ ----- %@",incStr,decStr,idLabelStr, subCategoryName.text);
-    NSInteger incTag = [incStr integerValue];
-    NSInteger decag = [decStr integerValue];
-    NSInteger idLabelTag = [idLabelStr integerValue];
-    cell.incButton.tag = incTag;
-    [cell.incButton addTarget:self action:@selector(incButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    cell.decButton.tag = decag;
-    [cell.decButton addTarget:self action:@selector(decButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    cell.idLabel.tag = idLabelTag;
-    
-    cell.idLabelTemp.text = idLabelStr;
+//    cell.incButton = (UIButton *)[oldcell viewWithTag:11];
+//    cell.decButton = (UIButton *)[oldcell viewWithTag:10];
+//    cell.idLabel = (UILabel *)[oldcell viewWithTag:12];
+//    cell.idLabelTemp = (UILabel *)[oldcell viewWithTag:30];
+//    
+//    cell.buyButton = (UIButton *)[cell viewWithTag:15];
+//    
+//    cell.incButton.layer.borderWidth = .5f;
+//    cell.decButton.layer.borderWidth = .5f;
+//    cell.idLabel.layer.borderWidth = .5f;
+//    
+//    NSLog(@"IncTag--------- %@   DecTag ------- %@ ----- %@ ----- %@",incStr,decStr,idLabelStr, subCategoryName.text);
+//    NSInteger incTag = [incStr integerValue];
+//    NSInteger decag = [decStr integerValue];
+//    NSInteger idLabelTag = [idLabelStr integerValue];
+//    cell.incButton.tag = incTag;
+//    [cell.incButton addTarget:self action:@selector(incButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    cell.decButton.tag = decag;
+//    [cell.decButton addTarget:self action:@selector(decButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    cell.idLabel.tag = idLabelTag;
+//    
+//    cell.idLabelTemp.text = idLabelStr;
     
     //NSString *celltext=[NSString stringWithFormat:@"%ld",indexPath.row];
     
-    NSMutableArray *dArray = [[NSMutableArray alloc] init];
-    if (cell.idLabel != nil) {
-        [dArray insertObject:cell.idLabel atIndex:0];
-        [dArray insertObject:indexPath atIndex:1];
-    }
-    
-    
-    cell.idLabel.text = @"0";
-    if(cell.idLabel != nil){
-        cell.incButton.accessibilityCustomActions = [NSArray arrayWithObject: dArray];
-        cell.decButton.accessibilityCustomActions = [NSArray arrayWithObject: cell.idLabel];
-        
-        cell.idLabel.accessibilityCustomActions = [NSArray arrayWithObjects:cell.buyButton, nil];
-        
-        
-
-        //cell.hiddenLabel.accessibilityCustomActions = [NSArray arrayWithObjects:indexPath];
-    }
-    
-    //This will create dynamic buy button.
-    cell.buyButton.tag = indexPath.row;
-    [cell.buyButton addTarget:self action:@selector(buyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    cell.buyButton.enabled = FALSE;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    NSMutableArray *dArray = [[NSMutableArray alloc] init];
+//    if (cell.idLabel != nil) {
+//        [dArray insertObject:cell.idLabel atIndex:0];
+//        [dArray insertObject:indexPath atIndex:1];
+//    }
+//    
+//    
+//    cell.idLabel.text = @"0";
+//    if(cell.idLabel != nil){
+//        cell.incButton.accessibilityCustomActions = [NSArray arrayWithObject: dArray];
+//        cell.decButton.accessibilityCustomActions = [NSArray arrayWithObject: dArray];
+//        
+//        cell.idLabel.accessibilityCustomActions = [NSArray arrayWithObjects:cell.buyButton, nil];
+//        
+//        
+//
+//        //cell.hiddenLabel.accessibilityCustomActions = [NSArray arrayWithObjects:indexPath];
+//    }
+//    
+//    //This will create dynamic buy button.
+//    cell.buyButton.tag = indexPath.row;
+//    [cell.buyButton addTarget:self action:@selector(buyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    cell.buyButton.enabled = FALSE;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
 //        NSLog(@"Label name %f %f %f %f %@ %@",subCategoryName.frame.origin.x, subCategoryName.frame.origin.y, subCategoryName.frame.size.width,subCategoryName.frame.size.height,subCategoryName.font.familyName, subCategoryName.font);
 //        NSLog(@"Image name %f %f %f %f",subCategoryImage.frame.origin.x, subCategoryImage.frame.origin.y, subCategoryImage.frame.size.height,subCategoryImage.frame.size.width);
@@ -362,12 +424,12 @@ NSInteger rowInc;
 //        NSLog(@"Qty name %f %f %f %f %@",subCategoryQty.frame.origin.x, subCategoryQty.frame.origin.y, subCategoryQty.frame.size.width,subCategoryQty.frame.size.height, subCategoryQty.font);
         
         
-        NSLog(@"inc Button  %f %f %f %f %@ %@",cell.incButton.frame.origin.x, cell.incButton.frame.origin.y, cell.incButton.frame.size.width,cell.incButton.frame.size.height, cell.incButton.font, cell.incButton);
+        //NSLog(@"inc Button  %f %f %f %f %@ %@",cell.incButton.frame.origin.x, cell.incButton.frame.origin.y, cell.incButton.frame.size.width,cell.incButton.frame.size.height, cell.incButton.font, cell.incButton);
 //        NSLog(@"dec Button  %f %f %f %f %@ %@",cell.decButton.frame.origin.x, cell.decButton.frame.origin.y, cell.decButton.frame.size.width,cell.decButton.frame.size.height, cell.decButton.font, cell.decButton);
 //        
 //        NSLog(@"label id  %f %f %f %f %@ %@",cell.idLabel.frame.origin.x, cell.idLabel.frame.origin.y, cell.idLabel.frame.size.width,cell.idLabel.frame.size.height, cell.idLabel.font, cell.idLabel);
         
-        NSLog(@"buy id  %f %f %f %f %@ %@",cell.buyButton.frame.origin.x, cell.buyButton.frame.origin.y, cell.buyButton.frame.size.width,cell.buyButton.frame.size.height, cell.buyButton.font, cell.buyButton);
+        //NSLog(@"buy id  %f %f %f %f %@ %@",cell.buyButton.frame.origin.x, cell.buyButton.frame.origin.y, cell.buyButton.frame.size.width,cell.buyButton.frame.size.height, cell.buyButton.font, cell.buyButton);
         
         UILabel *productName = [[UILabel alloc] initWithFrame:CGRectMake(125,10,243,23)];
         //productName.tag = [idLabelStr integerValue];
@@ -376,7 +438,7 @@ NSInteger rowInc;
         //[productName setTextColor:[UIColor whiteColor]];
         //[productName setBackgroundColor:[UIColor clearColor]];
         
-        [cell.contentView addSubview: productName];
+        //[cell.contentView addSubview: productName];
         
         UILabel *productPrice = [[UILabel alloc] initWithFrame:CGRectMake(125,34,243,23)];
         NSString *priceString = [[NSNumber numberWithFloat:price] stringValue];
@@ -388,7 +450,8 @@ NSInteger rowInc;
         //[productName setTextColor:[UIColor whiteColor]];
         //[productName setBackgroundColor:[UIColor clearColor]];
         
-        [cell.contentView addSubview: productPrice];
+        
+        //[cell.contentView addSubview: productPrice];
 
         
         UILabel *productAlcoholPercentage = [[UILabel alloc] initWithFrame:CGRectMake(125,34,243,51)];
@@ -399,7 +462,7 @@ NSInteger rowInc;
         //[productName setTextColor:[UIColor whiteColor]];
         //[productName setBackgroundColor:[UIColor clearColor]];
         
-        [cell.contentView addSubview: productAlcoholPercentage];
+        //[cell.contentView addSubview: productAlcoholPercentage];
 
         UILabel *productQty = [[UILabel alloc] initWithFrame:CGRectMake(125,64,94,23)];
         NSString *qtyString = [[NSNumber numberWithFloat:liter] stringValue];
@@ -411,20 +474,30 @@ NSInteger rowInc;
         //[productName setTextColor:[UIColor whiteColor]];
         //[productName setBackgroundColor:[UIColor clearColor]];
         
-        [cell.contentView addSubview: productQty];
+        //[cell.contentView addSubview: productQty];
         
-        UIImageView *sImage =[[UIImageView alloc] initWithFrame:CGRectMake(8,10,78,81)];
-        sImage.image = image;
-        [cell.contentView addSubview: sImage];
+//        UIImageView *sImage =[[UIImageView alloc] initWithFrame:CGRectMake(8,10,78,81)];
+//        sImage.image = image;
+        //[cell.contentView addSubview: sImage];
 
         //font-family: "DINPro-CondensedRegular"; font-weight: normal; font-style: normal; font-size: 20.00pt
         
         UIColor *whiteColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
+        NSMutableDictionary *cartArrayTemp = [[NSMutableDictionary alloc] init];
         
+        
+        [cartArrayTemp setValue:categoryID forKey:@"productID"];
+        [cartArrayTemp setValue:categoryName forKey:@"productName"];
+        [cartArrayTemp setValue:categoryPrice forKey:@"productPrice"];
+        [cartArrayTemp setValue:@"Offer1" forKey:@"productOffer"];
+        [cartArrayTemp setValue:idLabelStr forKey:@"idLabelStr"];
+        
+
         UIButton *incButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         incButton.tag = [incStr integerValue];
-        incButton.frame = CGRectMake(324.0f, 34.0f, 22.0f, 19.5f);
+//        incButton.frame = CGRectMake(324.0f, 34.0f, 22.0f, 19.5f);
+        incButton.frame = CGRectMake(324.0f, 7.0f, 22.0f, 28.5f);
         [incButton setTitle:@"+" forState:UIControlStateNormal];
         incButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         incButton.titleLabel.font = [UIFont fontWithName:@"DINPro-CondensedRegular" size:13.0];
@@ -435,8 +508,9 @@ NSInteger rowInc;
         incButton.layer.cornerRadius = 5;
         incButton.clipsToBounds = YES;
         incButton.layer.masksToBounds = YES;
-
-        [cell addSubview:incButton];
+        incButton.accessibilityCustomActions = [NSArray arrayWithObject: cartArrayTemp];
+        
+        //[cell addSubview:incButton];
         
         
         
@@ -448,7 +522,8 @@ NSInteger rowInc;
         
         UIButton *decButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         decButton.tag = [incStr integerValue];
-        decButton.frame = CGRectMake(286.0f, 34.0f, 22.0f, 19.5f);
+//        decButton.frame = CGRectMake(286.0f, 34.0f, 22.0f, 19.5f);
+        decButton.frame = CGRectMake(289.0f, 7.0f, 22.0f, 28.5f);
         [decButton setTitle:@"-" forState:UIControlStateNormal];
         decButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         decButton.titleLabel.font = [UIFont fontWithName:@"DINPro-CondensedRegular" size:13.0];
@@ -457,16 +532,17 @@ NSInteger rowInc;
         decButton.layer.cornerRadius = 5;
         decButton.clipsToBounds = YES;
         decButton.layer.masksToBounds = YES;
+        decButton.accessibilityCustomActions = [NSArray arrayWithObject: cartArrayTemp];
         
-        
-        [cell addSubview:decButton];
+        //[cell addSubview:decButton];
         
         [decButton addTarget:self
                       action:@selector(qtyDelButtonAction:)
             forControlEvents:UIControlEventTouchUpInside];
         
         
-        UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(305.0f, 34.0f, 22.0f, 19.5f)];
+//        UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(305.0f, 34.0f, 22.0f, 19.5f)];
+        UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(306.0f, 7.0f, 22.0f, 28.5f)];
         idLabel.tag = [idLabelStr integerValue];
         idLabel.text = @"0";
         idLabel.textAlignment = NSTextAlignmentCenter;
@@ -475,7 +551,7 @@ NSInteger rowInc;
         idLabel.layer.borderColor = [UIColor colorWithRed:0 green:0.501961 blue:1.0 alpha:1.0].CGColor;
         idLabel.layer.borderWidth = 1.0f;
         
-        [cell.contentView addSubview: idLabel];
+        //[cell.contentView addSubview: idLabel];
 
         UIView* mask = [[UIView alloc] initWithFrame:CGRectMake(1, 0, incButton.frame.size.width - 1, incButton.frame.size.height)];
         mask.backgroundColor = [UIColor blackColor];
@@ -495,13 +571,6 @@ NSInteger rowInc;
 
         decButton.layer.mask = mask1.layer;
         
-        NSMutableArray *cartArray = [[NSMutableArray alloc] init];
-
-        [cartArray insertObject:categoryID atIndex:0];
-        [cartArray insertObject:categoryName atIndex:1];
-        [cartArray insertObject:categoryPrice atIndex:2];
-        [cartArray insertObject:@"Offer1" atIndex:3];
-        [cartArray insertObject:idLabelStr atIndex:4];
         
         
         UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -510,15 +579,37 @@ NSInteger rowInc;
         buyButton.enabled = FALSE;
         UIImage *buyImage = [UIImage imageNamed:@"buy_now.png"];
         [buyButton setImage:buyImage forState:UIControlStateNormal];
-        buyButton.accessibilityCustomActions = [NSArray arrayWithObject: cartArray];
+        buyButton.accessibilityCustomActions = [NSArray arrayWithObject: cartArrayTemp];
         [buyButton addTarget:self
                       action:@selector(buyButtonClicked:)
             forControlEvents:UIControlEventTouchUpInside];
         
-        [cell addSubview:buyButton];
+        
+        dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
+        dispatch_async(queue, ^{
+            // create UIwebview, other things too
+            
+            // Perform on main thread/queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [cell.contentView addSubview: idLabel];
+                [cell addSubview:incButton];
+                [cell addSubview:decButton];
+                [cell addSubview:buyButton];
+                
+                [cell addSubview: productAlcoholPercentage];
+                [cell addSubview: productQty];
+                [cell addSubview: productPrice];
+                [cell addSubview: productName];
+                [cell addSubview: sImage];
+            });
+        });
         
         
-     }
+    }    
+        
+        
+    
+    
     return cell;
     
 }
@@ -553,7 +644,7 @@ NSInteger rowInc;
     if(myInt > 0){
         buyButton.enabled = TRUE;
     }
-
+    [self buildCartArray:sender];
 }
 
 - (IBAction)qtyDelButtonAction:(id)sender
@@ -587,34 +678,76 @@ NSInteger rowInc;
             buyButton.enabled = FALSE;
         }
     }
+    [self buildCartArray:sender];
 }
 
 
 -(void)buyButtonClicked:(UIButton*)sender
 {
-    
-    NSLog(@"buyButtonClicked Button clicked %lu",sender.tag);
-    UIButton *updateButton = (UIButton *)sender;
-    CCell *cell = (CCell *)updateButton.superview.superview;
-
-    NSLog(@"%li %@", updateButton.tag,sender);
-    NSArray *arrHeart = (NSArray *)updateButton.accessibilityCustomActions;
-    
-    NSString *idLabelStr = arrHeart[0][4];
-    NSInteger idLabelTag = [idLabelStr integerValue];
-
-    UILabel *qtyLabel = (UILabel *)[cell viewWithTag:idLabelTag];
-    NSLog(@"Label %@",qtyLabel.text);
-
-    NSMutableArray *cartArray = arrHeart[0];
-    
-    [cartArray insertObject:qtyLabel.text atIndex:5];
-    
     NSLog(@"Cart Array %@",cartArray);
+    NSLog(@"buyButtonClicked Button clicked %lu",sender.tag);
+//    UIButton *updateButton = (UIButton *)sender;
+//    CCell *cell = (CCell *)updateButton.superview.superview;
+//
+//    NSLog(@"%li %@", updateButton.tag,sender);
+//    NSArray *arrHeart = (NSArray *)updateButton.accessibilityCustomActions;
+//    
+//    NSString *idLabelStr = arrHeart[0][4];
+//    NSInteger idLabelTag = [idLabelStr integerValue];
+//
+//    UILabel *qtyLabel = (UILabel *)[cell viewWithTag:idLabelTag];
+//    NSLog(@"Label %@",qtyLabel.text);
+//
+//    cartArray = arrHeart[0];
+//    
+//    //[cartArray insertObject:qtyLabel.text atIndex:5];
+//    
+//    NSLog(@"Cart Array %@",cartArray);
     NSString *cartConfigName = [NSString stringWithFormat:@"%@Cart- ",@"sreeji.gopal@gmail.com"];
-    //[self addData:cartConfigName :cartArray];
+    
+    NSArray *fetchSubCategoryData  = [self readSubCategoryData:cartConfigName];
+    if([fetchSubCategoryData count] > 0){
+        [self updateData:cartConfigName];
+        [self addData:cartConfigName :cartArray];
+    }else{
+        [self addData:cartConfigName :cartArray];
+    }
     
     [self performSegueWithIdentifier:@"Associate" sender:sender];
+    
+}
+
+
+
+-(NSMutableDictionary*)buildCartArray:(UIButton*)sender{
+    NSMutableArray *tempCart = [[NSMutableArray alloc] init];
+    
+    UIButton *updateButton = (UIButton *)sender;
+    CCell *cell = (CCell *)updateButton.superview.superview;
+    
+    //NSLog(@"%li %@", updateButton.tag,sender);
+    NSArray *arrHeart = (NSArray *)updateButton.accessibilityCustomActions;
+    arrHeart = [arrHeart objectAtIndex:0];
+    NSString *idLabelStr = [arrHeart valueForKey:@"idLabelStr"];
+    NSInteger idLabelTag = [idLabelStr integerValue];
+    
+    UILabel *qtyLabel = (UILabel *)[cell viewWithTag:idLabelTag];
+    
+    
+    
+    NSLog(@"Key %@",[arrHeart valueForKey:@"productID"]);
+    //[tempCart insertObject:qtyLabel.text atIndex:5];
+    [arrHeart setValue:qtyLabel.text forKey:@"qty"];
+    [cartArray removeObjectForKey:[arrHeart valueForKey:@"productID"]];
+    if (![qtyLabel.text isEqualToString:@"0"]) {
+        [cartArray setValue:arrHeart forKey:[arrHeart valueForKey:@"productID"]];
+    }
+    
+    
+    //[cartArray set:[tempCart objectAtIndex:0] forKey:tempCart];
+    
+    NSLog(@"Temp Array %@ Cart Array %@",tempCart, cartArray);
+    return cartArray;
     
 }
 
@@ -751,8 +884,32 @@ NSInteger rowInc;
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"Segu Clicked");
+    NSLog(@"Segu Clicked %@", cartArray);
+    
+    UINavigationController *navigationController = [segue destinationViewController];
+    
+    CartTableViewController *cartViewController = [navigationController childViewControllers].firstObject;
+    cartViewController.cartArray = cartArray;
 }
+
+
+-(void)updateData :(NSString *) name {
+    NSArray *fetchedConfig = [[CoreDataManager sharedManager]fetchPredicateEntityWithClassName:@"Config" :@"data_name" :name];
+    // display all objects
+    for (Config *config in fetchedConfig) {
+        NSLog(@"Config %@  -- Date %@ ", [config.data description], [config.datetime description]);
+        [[CoreDataManager sharedManager]deleteEntity: config];
+    }
+    [[CoreDataManager sharedManager]saveDataInManagedContextUsingBlock:^(BOOL saved, NSError *error){
+        if(error != nil){
+            NSLog(@"Saved");
+        }else{
+            NSLog(@"Save error %@",error);
+        }
+        
+    }];
+}
+
 
 
 -(void)addData :(NSString*)configname :(NSData*)data{
@@ -859,7 +1016,7 @@ NSInteger rowInc;
 }
 
 - (void)goBack {
-    //NSLog(@"xxx");
+    NSLog(@"xxx");
     //MainTableViewController *mainTableViewController = [[MainTableViewController alloc]init];
     //mainTableViewController.de
     //[self.navigationController pushViewController:mainTableViewController animated:YES];
@@ -867,6 +1024,8 @@ NSInteger rowInc;
         [self.parentViewController dismissModalViewControllerAnimated:YES];
     else
         [self.presentingViewController dismissModalViewControllerAnimated:YES];
+    
+
 }
 
 
@@ -901,6 +1060,5 @@ NSInteger rowInc;
     
     return retImage;
 }
-
 
 @end
